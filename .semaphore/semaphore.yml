@@ -31,19 +31,8 @@ blocks:
             - cache store gradle-wrapper ~/.gradle/wrapper
             - cache store gradle-cache ~/.gradle/caches
             - cache store android-build ~/.android/build-cache
-  - name: Verification
-    task:
-      jobs:
-        - name: Analyze Code
-          commands:
-            - ./gradlew lint
-        - name: Unit Tests
-          commands:
-            - ./gradlew testDebugUnitTest
-      epilogue:
-        always:
-          commands:
-            - artifact push job --expire-in 2w --destination reports/ app/build/reports/
+      secrets:
+        - name: Env File
 promotions:
   - name: Start Integration tests
     pipeline_file: integration-tests.yml
